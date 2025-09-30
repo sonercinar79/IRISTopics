@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interface Catalog UI (MVP)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Interface Catalog UI (MVP)</h1>
+    <p>Primitive → Message → Topic sırasıyla tanımlayın, sonra YAML dosyalarını indirin.</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>1) Primitive / Typedef Havuzu</h2>
+      <div class="row">
+        <label>İsim</label><input id="primName" placeholder="Angle_deg / int32 / string">
+      </div>
+      <div class="row">
+        <label>Temel Tip</label>
+        <select id="primBase">
+          <option value="">(base değil - primitive)</option>
+          <option>int32</option>
+          <option>float32</option>
+          <option>boolean</option>
+          <option>string</option>
+        </select>
+        <label>Birim</label><input id="primUnit" placeholder="deg / celsius / m/s">
+      </div>
+      <div class="row">
+        <button id="addPrimitive">Havuza Ekle</button>
+      </div>
+      <div class="row">
+        <table id="primitiveTable">
+          <thead><tr><th>İsim</th><th>Base</th><th>Birim</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>2) Mesaj (Veri Yapısı) Havuzu</h2>
+      <div class="row">
+        <label>Mesaj Adı</label><input id="msgName" placeholder="GimbalState">
+        <label>Versiyon</label><input id="msgVersion" value="v1">
+        <button id="addMessage">Mesaj Oluştur</button>
+      </div>
+      <div class="row">
+        <h3>Alan Ekle</h3>
+        <input id="fieldName" placeholder="alan adı (azimuth)">
+        <select id="fieldType"></select>
+        <label><input type="checkbox" id="fieldArray"> dizi</label>
+        <label><input type="checkbox" id="fieldRequired" checked> zorunlu</label>
+        <button id="addField">Mesaja Alan Ekle</button>
+      </div>
+      <div class="row">
+        <label>Aktif Mesaj</label>
+        <select id="msgSelect"></select>
+        <button id="deleteMessage">Seçili Mesajı Sil</button>
+      </div>
+      <div class="row">
+        <table id="fieldTable">
+          <thead><tr><th>Alan</th><th>Tip</th><th>Dizi</th><th>Zorunlu</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>3) Topic Kataloğu</h2>
+      <div class="row">
+        <label>Topic Adı</label><input id="topicName" placeholder="prod.airdef.eo.gimbal.state.v1">
+      </div>
+      <div class="row">
+        <label>Transport</label>
+        <select id="topicTransport">
+          <option>dds</option>
+          <option>ros2</option>
+        </select>
+        <label>Payload (Mesaj)</label>
+        <select id="topicPayload"></select>
+      </div>
+      <div class="row">
+        <label>QoS Preset</label>
+        <select id="topicQos">
+          <option value="control_cmd">control_cmd</option>
+          <option value="sensor_data">sensor_data</option>
+        </select>
+        <label>Sahip Ekip</label><input id="topicOwner" placeholder="EO-Team">
+        <label>Frekans (Hz)</label><input id="topicHz" type="number" value="50">
+      </div>
+      <div class="row">
+        <button id="addTopic">Topic Oluştur</button>
+      </div>
+      <div class="row">
+        <table id="topicTable">
+          <thead><tr><th>Ad</th><th>Transport</th><th>Payload</th><th>QoS</th><th>Sahip</th><th>Hz</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>4) YAML Dosyalarını İndir</h2>
+      <div class="row">
+        <button id="downloadPrimitives">primitives.yaml indir</button>
+        <button id="downloadMessages">messages/… indir (tek tek)</button>
+        <button id="downloadTopics">topics/… indir (tek tek)</button>
+      </div>
+      <p class="hint">İndirdiğiniz dosyaları, örnek projedeki <code>schemas/</code> klasör yapısına kopyalayın ve <strong>generate:all</strong> çalıştırın.</p>
+      <div class="row">
+        <textarea id="preview" rows="8" placeholder="Önizleme"></textarea>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>MVP — veriler yerel tarayıcı <em>localStorage</em>'da saklanır.</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
